@@ -281,14 +281,17 @@ if (@$_GET['activate'] == 1) {
     
   </div>
 </div>
+
+
 <!-- Text input-->
+<!--
 <div class="form-group">
   <label class="col-md-12 control-label" for="tag"></label>  
   <div class="col-md-12">
   <input id="tag" name="tag" placeholder="Enter #tag which is used for searching" class="form-control input-md" type="text">
     
   </div>
-</div>
+</div>-->
 
 
 <!-- Text input-->
@@ -385,7 +388,11 @@ if (@$_GET['activate'] == 1) {
 
 //echo'<input type="text" name="ans1" id="in_ans" class="qu_radio"><br><br>';
 //                    add file upload
-echo'<textarea id="ref'. $i .'" name="ref'. $i .'" placeholder="References...' . $i . '" rows="10" cols="60"></textarea>';
+//echo'<textarea id="ref'. $i .'" name="ref'. $i .'" placeholder="References...' . $i . '" rows="10" cols="60"></textarea>';
+                    echo'<h3>Upload File</h3>
+            <input type="file" name="myfile"> <br>
+            <button type="submit" name="save">upload</button>';
+
                 }
 
                 echo '<div class="form-group">

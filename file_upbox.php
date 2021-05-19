@@ -1,18 +1,23 @@
+<?php include 'filesLogic.php';?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>M.Quizzes || DASHBOARD </title>
+    <title>M.Quizzes || SUMMARY </title>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/font.css">
+    <link rel="stylesheet" href="css/style.css">
     <script src="js/jquery.js" type="text/javascript"></script>
 
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+
+
 
     <script>
         $(function () {
@@ -34,7 +39,6 @@
         <div class="col-lg-6">
             <span class="logo">M.Quizzes</span>
         </div>
-
     </div>
 </div>
 <!-- header close-->
@@ -81,73 +85,25 @@
                 echo '<span class="pull-right top title1" ><span class="log1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;</span> <a href="dash.php" class="log log1">' . $name . '</a>&nbsp;|&nbsp;<a href="logout.php?q=account.php" class="log"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Signout</button></a></span>';
             } ?>
         </div><!-- /.navbar-collapse -->
+
     </div><!-- /.container-fluid -->
 </nav>
 <!--navigation menu closed-->
-<!--New added activating questions-->
 
-<?php if (@$_GET['act'] == 1) {
-    $qid = @$_GET['qid'];
+<div class="container">
+    <div class="row">
+        <form action="file_upbox.php" method="post" enctype="multipart/form-data" >
+            <h3>Upload File</h3>
+            <input type="file" name="myfile"> <br>
+            <button type="submit" name="save">upload</button>
+        </form>
+    </div>
+</div>
+<?php if (@$_GET['summary'] == 1) {
     $eid = @$_GET['eid'];
-
-    $result = mysqli_query($con, "UPDATE questions SET Qst='A' WHERE eid='$eid' AND qid='$qid'") or die('Error');
-
-//    print_r($result);
-
-    header("Location:/question_activated.php?stat=1&eid='$eid'", '', '200');
-
-}
-?>
-<!--End New added activating questions -->
-<!--New added deactivating questions-->
-<?php if (@$_GET['act'] == 2) {
     $qid = @$_GET['qid'];
-    $eid = @$_GET['eid'];
-
-    $result = mysqli_query($con, "UPDATE questions SET Qst='D' WHERE eid='$eid' AND qid='$qid'") or die('Error');
-
-    print_r($result);
-
-    header("Location:/question_activated.php?stat=2&eid='$eid'");
-
-}
-?>
-<!--End New added deactivating questions -->
-
-<!--start view table-->
-<?php if (@$_GET['stat'] == 1) {
-$eid = @$_GET['eid'];
-$qid = @$_GET['qid'];
-
-$result = mysqli_query($con, "SELECT * FROM questions WHERE eid='$eid'") or die('Error');
-echo '<div class="panel"><div class="table-responsive"><table class="table table-striped title1">
-<tr><td><b>Questions</b></td></td><td><b>Status</b></td><td></td><td></td><td></td><td></td></tr>';
-$c = 1;
-while ($row = mysqli_fetch_array($result)) {
-    $qid = $row['qid'];
-    $qns = $row['qns'];
-    $Qst = $row['Qst'];
-    $st = 'Activated';
-    if ($Qst == 'A') {
-        $st = 'Activated';
-    } else if ($Qst == 'D') {
-        $st = 'Deactivated';
-    }
-
-
-
-        echo '<tr>
-<td>' . $qns . '</td><td>' . $st . '</td><td><button class="btn btn-warning"><a href="question_activated.php?act=1&qid=' . $qid . '&eid=' . $eid . '" style="color: seashell"><b>ACTIVATE</b></a></button></td><td><button class="btn btn-danger"><a href="question_activated.php?act=2&qid=' . $qid . '&eid=' . $eid . '" style="color: seashell">DEACTIVATE</a></button></td><td><button class="btn btn-info"><a href="submitted_list.php?summary=1&email=' . $email . '&eid=' . $eid . '&qid=' . $qid .'" style="color: white">SUMMARY</a></button></td><td><button class="btn btn-success"><a href="file_upbox.php?ref=1&email=' . $email . '&eid=' . $eid . '&qid=' . $qid .'" style="color: white">REFERENCES</a></button></td></tr>';
-
-
-    }
-
-
-    echo '</table></div></div>';
-
-}
-?>
-
-<!--end view table-->
+    $email = @$_GET['email'];
+    $optionid = @$_GET['optionid'];
+    ?>
 </body>
 </html>
